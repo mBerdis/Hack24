@@ -7,6 +7,7 @@ const int marioBtnPin = A3;  // Pin connected to the button
 const int buzzerPin = 3;  // Pin connected to the buzzer
 
 const int ledsPins[] = {10, 11, 12, 13};
+const size_t ledsCount = 4;
 
 // Define the frequencies for the musical scale (C major scale)
 const float frequencies[] = {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25};
@@ -31,9 +32,25 @@ const int marioNoteDurations[] = {
   125, 125, 125, 125, 125, 125, 125, 125, 125, 125
 };
 
+void control_all_leds(int level)
+{
+  for (size_t i = 0; i < ledsCount; i++)
+  {
+    digitalWrite(ledsPins[i], level);
+  }
+}
+
+void playNote(float freq, int duration = 0UL)
+{
+  control_all_leds(LOW);
+  tone(buzzerPin, freq);  // Play each note of the scale
+  delay(duration);        // Add a short delay between notes
+  noTone(buzzerPin);      // Stop playing the note
+  control_all_leds(HIGH);
+}
 
 void setup() {
-  for (size_t i = 0; i < 4; i++)
+  for (size_t i = 0; i < ledsCount; i++)
   {
     pinMode(ledsPins[i], OUTPUT);
   }
@@ -44,48 +61,29 @@ void setup() {
   pinMode(marioBtnPin, INPUT);
   // Initialize the buzzer pin as output
   pinMode(buzzerPin, OUTPUT);
+  control_all_leds(HIGH);
 }
 
 void loop() {
-  digitalWrite(ledsPins[0], HIGH);
-
 
   // Check if the button is pressed
   if (digitalRead(singleNoteBtnPin) == LOW) {
-    tone(buzzerPin, 440.0F); // Play each note of the scale
-    delay(500); // Play each note for 500 milliseconds
-    noTone(buzzerPin); // Stop playing the note
-    delay(50); // Add a short delay between notes
+    playNote(440.0F, 500);
   }
 
   if (digitalRead(doremiBtnPin) == LOW) {
     // Play the musical scale
     for (int i = 0; i < 8; i++) {
-      tone(buzzerPin, frequencies[i]); // Play each note of the scale
-      delay(500); // Play each note for 500 milliseconds
-      noTone(buzzerPin); // Stop playing the note
-      delay(50); // Add a short delay between notes
+      playNote(frequencies[i], 500);
     }
   }
 
   if (digitalRead(marioBtnPin) == LOW)
   {
     // Play the Mario Bros theme melody
-    for (int i = 0; i < sizeof(mario) / sizeof(mario[0]); i++) {
-      if (mario[i] == 0) {
-        // Pause if the note is 0 (rest)
-        delay(marioNoteDurations[i]);
-      } else {
-        // Play the note
-        tone(buzzerPin, mario[i], marioNoteDurations[i]);
-        // Wait for the note duration
-        delay(marioNoteDurations[i]);
-      }
-      // Stop playing the note
-        noTone(buzzerPin);
-      }
-      // Pause between repetitions of the melody
-      delay(1000);
+    for (int i = 0; i < sizeof(mario) / sizeof(mario[0]); i++) 
+    {
+      playNote(mario[i], marioNoteDurations[i]);
     }
-  
+  }
 }
