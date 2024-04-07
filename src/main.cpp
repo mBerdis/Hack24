@@ -80,6 +80,7 @@ void playNote(float freq, int duration = 0UL)
 }
 
 void setup() {
+  Serial.begin(9600);
     // Set pin modes
     pinMode(LATCH_PIN, OUTPUT);
     pinMode(CLOCK_PIN, OUTPUT);
@@ -103,6 +104,30 @@ void setup() {
 
 void loop() 
 {
+  if (Serial.available()) {
+    String melody = Serial.readStringUntil('\n'); // Read the incoming data until newline
+    
+    // Ensure the string is not empty
+    if (melody.length() > 0) {
+      int numbers[100]; // Example array size, adjust based on your needs
+      int count = 0; // Counter for the number of integers read
+      
+      // Tokenize the input string using comma as delimiter
+      char* ptr = strtok(const_cast<char*>(melody.c_str()), ",");
+      
+      // Loop through each token and convert it to integer
+      while (ptr != NULL) {
+        numbers[count] = atoi(ptr); // Convert token to integer and store in array
+        count++; // Increment count
+        ptr = strtok(NULL, ","); // Move to next token
+      }
+      
+      // Play the notes after the entire string is received and parsed
+      for (int i = 0; i < count; i++) {
+        playNote(numbers[i] +, 500); // Play each note for 500 ms
+      }
+    }
+  }
   // Check if the button is pressed
   if (digitalRead(singleNoteBtnPin) == LOW) 
   {
