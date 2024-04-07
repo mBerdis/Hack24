@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include "pitches.h"
+
+#define LAUNCHPAD_STOP 255
 
 // Pin Definitions
 const int singleNoteBtnPin = A1;  // Pin connected to the button
@@ -29,6 +32,21 @@ const byte digitPatterns[] = {
     B10000000, // 8
     B10011000, // 9
     B11111111  // none
+};
+
+// Array to store note frequencies, starting from index 1
+const int noteFrequencies[] = 
+{
+    0,   // Index 0 is reserved for formatting
+    31, 33, 35, 37, 39, 41, 44, 46, 49, 52,
+    55, 58, 62, 65, 69, 73, 78, 82, 87, 93,
+    98, 104, 110, 117, 123, 131, 139, 147, 156, 165,
+    175, 185, 196, 208, 220, 233, 247, 262, 277, 294,
+    311, 330, 349, 370, 392, 415, 440, 466, 494, 523,
+    554, 587, 622, 659, 698, 740, 784, 831, 880, 932,
+    988, 1047, 1109, 1175, 1245, 1319, 1397, 1480, 1568, 1661,
+    1760, 1865, 1976, 2093, 2217, 2349, 2489, 2637, 2794, 2960,
+    3136, 3322, 3520, 3729, 3951, 4186, 4435, 4699, 4978
 };
 
 // Define the frequencies for the musical scale (C major scale)
@@ -102,37 +120,40 @@ void setup() {
   control_all_leds(HIGH);
 }
 
+void launchpad_start_note(float freq)
+{
+  control_all_leds(LOW);
+  tone(buzzerPin, freq);  // Play each note of the scale
+}
+
+void launchpad_stop_note()
+{
+  noTone(buzzerPin);      // Stop playing the note
+  control_all_leds(HIGH);
+}
+
 void loop() 
 {
   if (Serial.available()) {
-    String melody = Serial.readStringUntil('\n'); // Read the incoming data until newline
-    
-    // Ensure the string is not empty
-    if (melody.length() > 0) {
-      int numbers[100]; // Example array size, adjust based on your needs
-      int count = 0; // Counter for the number of integers read
-      
-      // Tokenize the input string using comma as delimiter
-      char* ptr = strtok(const_cast<char*>(melody.c_str()), ",");
-      
-      // Loop through each token and convert it to integer
-      while (ptr != NULL) {
-        numbers[count] = atoi(ptr); // Convert token to integer and store in array
-        count++; // Increment count
-        ptr = strtok(NULL, ","); // Move to next token
-      }
-      
-      // Play the notes after the entire string is received and parsed
-      for (int i = 0; i < count; i++) {
-        playNote(numbers[i] +, 500); // Play each note for 500 ms
-      }
+    byte freq[1];
+    Serial.readBytes(freq, 1);
+
+    if (freq[0] == LAUNCHPAD_STOP)
+    {
+      shiftOutData(digitPatterns[10], segments[3]);
+      launchpad_stop_note();
+    }
+    else 
+    {
+      shiftOutData(digitPatterns[4], segments[3]);
+      launchpad_start_note(noteFrequencies[freq[0]]);
     }
   }
   // Check if the button is pressed
   if (digitalRead(singleNoteBtnPin) == LOW) 
   {
     shiftOutData(digitPatterns[1], segments[0]);
-	  playNote(440.0F, 500);
+	  playNote(NOTE_A4, 500);
     shiftOutData(digitPatterns[10], segments[0]);
   }
 
