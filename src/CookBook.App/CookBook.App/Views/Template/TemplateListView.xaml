@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:CookBook.App.Views"
+                       xmlns:texts="clr-namespace:CookBook.App.Resources.Texts"
+                       xmlns:m="clr-namespace:CookBook.BL.Models;assembly=CookBook.BL"
+                       xmlns:vm="clr-namespace:CookBook.App.ViewModels"
+                       x:Class="CookBook.App.Views.Template.TemplateListView"
+                       Title="B/S/H Music Creator "
+                       Style="{StaticResource ContentPageStyle}"
+                       x:Name="TemplateListViewRoot"
+                       x:DataType="vm:TemplateListViewModel">
+    <Grid HorizontalOptions="FillAndExpand" ColumnDefinitions="*, *"
+          ColumnSpacing="20" >
+
+        <Frame BackgroundColor="White" Grid.Column="0">
+                <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={x:Reference TemplateListViewRoot}, Path=BindingContext.GoToPianoCommand}"
+                                                       />
+                </Frame.GestureRecognizers>
+                <Grid RowDefinitions="*, *">
+                <Image Grid.Row="0" Grid.RowSpan="2"
+                 Aspect="AspectFill"
+                WidthRequest="300" HeightRequest="300"
+                 Source="launchpad.png" />
+
+
+
+                <Label Grid.Row="1"
+                 Margin="22,12"
+                 FontSize="40" LineBreakMode="WordWrap"
+
+                 TextColor="Black" VerticalOptions="End" />
+            </Grid>
+        </Frame>
+
+        <Frame BackgroundColor="White"  Grid.Column="1" >
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={x:Reference TemplateListViewRoot}, Path=BindingContext.GoToMusicConverterCommand}"
+                                        />
+            </Frame.GestureRecognizers>
+            <Grid RowDefinitions="*, *">
+                <Image Grid.Row="0" Grid.RowSpan="2"
+              Aspect="AspectFill"
+              WidthRequest="300" HeightRequest="300"
+              Source="upload.png" />
+
+
+
+                <Label Grid.Row="1"
+              Margin="22,12"
+              FontSize="20" LineBreakMode="WordWrap"
+
+              TextColor="White" VerticalOptions="End" />
+            </Grid>
+        </Frame>
+
+    </Grid>
+</views:ContentPageBase>

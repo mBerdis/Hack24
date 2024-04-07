@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:CookBook.App.Views"
+                       xmlns:texts="clr-namespace:CookBook.App.Resources.Texts"
+                       xmlns:vm="clr-namespace:CookBook.App.ViewModels"
+                       x:Class="CookBook.App.Views.Template.TemplateEditView"
+                       Title="Music Generator"
+                       Style="{StaticResource ContentPageStyle}"
+                       x:Name="TemplateEditViewRoot"
+                       x:DataType="vm:TemplateEditViewModel">
+<Grid ColumnDefinitions="*,*">
+    <Grid Grid.Column="0"  Margin="0,50,0,0" RowDefinitions="50,200,50,30,50">
+        <Label   MaximumWidthRequest="500" TextColor="Black" FontSize="32" Grid.Row="0" Text="Mp3 Converter"></Label>
+        <Image Grid.Row="1" Source="upload.png"></Image>
+        <Button  MaximumWidthRequest="300" HeightRequest="50" Grid.Row="2"  CornerRadius="5"  Command="{Binding PickFileCommand}"
+                 TextColor="White" BackgroundColor="RoyalBlue" Text="Browse"></Button>
+        <Label HorizontalTextAlignment="Center"  MaximumWidthRequest="500" Grid.Row="3" TextColor="DimGray" Text="{Binding PickedFile.FileName}"></Label>
+        <Button  MaximumWidthRequest="300" Grid.Row="4"
+                 VerticalOptions="Start"
+                 HeightRequest="50"
+                 Text="Play Song"
+                 CornerRadius="5"
+                 BackgroundColor="Green"
+                 Command="{Binding GenerateToPiezoCommand}" />
+    </Grid>
+    <Grid  Grid.Column="1"  Margin="0,50,0,0" RowDefinitions="50,250,50">
+        <Label MaximumWidthRequest="500" TextColor="Black"  FontSize="32" Grid.Row="0" Text="Text to Speech"></Label>
+        <Entry MaximumWidthRequest="500" TextColor="Black" x:Name="StringInputTextBox" BackgroundColor="LightBlue" Grid.Row="1" Margin="10" Text="{Binding TTSinput}"/>
+        <Button MaximumWidthRequest="300" Grid.Row="2"
+                VerticalOptions="Start"
+                HeightRequest="50"
+                Text="Play TTS"
+                CornerRadius="5"
+                BackgroundColor="Green"
+                Command="{Binding SendTTSCommand}" />
+    </Grid>
+</Grid>
+
+</views:ContentPageBase>

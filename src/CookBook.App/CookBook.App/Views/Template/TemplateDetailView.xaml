@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:CookBook.App.Views"
+                       xmlns:texts="clr-namespace:CookBook.App.Resources.Texts"
+                       xmlns:vm="clr-namespace:CookBook.App.ViewModels"
+                       x:Class="CookBook.App.Views.Template.TemplateDetailView"
+                       Title="Launchpad"
+                       Style="{StaticResource ContentPageStyle}"
+                       x:Name="TemplateDetailViewRoot"
+                       x:DataType="vm:TemplateDetailViewModel">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background"
+                Value="Gray" />
+
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled" />
+                        <VisualState x:Name="Pressed">
+                            <!-- define your custom 'pressed' styles here -->
+                            <VisualState.Setters>
+                                <Setter Property="Background"
+                                    Value="Orange" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+   <Grid RowDefinitions="30,*">
+       <Button HeightRequest="30" WidthRequest="100"  Clicked="SaveSong" Grid.Row="0" BackgroundColor="Green" Text="Save Song"></Button>
+       <Grid Grid.Row="1" Padding="20" BackgroundColor="Black" RowSpacing="5"  ColumnSpacing="5" ColumnDefinitions="*,*,*,*,*" RowDefinitions="*,*,*,*,*">
+
+        <Button  CommandParameter="1" Pressed="OnButtonPressed" Grid.Row="0" Grid.Column="0" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="2" Pressed="OnButtonPressed" Grid.Row="0" Grid.Column="1" Released="OnButtonReleased" >
+        </Button>
+        <Button  CommandParameter="3" Pressed="OnButtonPressed" Grid.Row="0" Grid.Column="2" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="4" Pressed="OnButtonPressed" Grid.Row="0" Grid.Column="3" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="5" Pressed="OnButtonPressed" Grid.Row="0" Grid.Column="4" Released="OnButtonReleased">
+        </Button>
+
+        <Button  CommandParameter="6" Pressed="OnButtonPressed" Grid.Row="1" Grid.Column="0" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="7" Pressed="OnButtonPressed" Grid.Row="1" Grid.Column="1" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="8" Pressed="OnButtonPressed" Grid.Row="1" Grid.Column="2" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="9" Pressed="OnButtonPressed" Grid.Row="1" Grid.Column="3" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="10" Pressed="OnButtonPressed" Grid.Row="1" Grid.Column="4" Released="OnButtonReleased">
+        </Button>
+
+
+        <Button  CommandParameter="11" Pressed="OnButtonPressed" Grid.Row="2" Grid.Column="0" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="12" Pressed="OnButtonPressed" Grid.Row="2" Grid.Column="1" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="13" Pressed="OnButtonPressed" Grid.Row="2" Grid.Column="2" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="14" Pressed="OnButtonPressed" Grid.Row="2" Grid.Column="3" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="15" Pressed="OnButtonPressed" Grid.Row="2" Grid.Column="4" Released="OnButtonReleased">
+        </Button>
+
+
+
+        <Button  CommandParameter="16" Pressed="OnButtonPressed" Grid.Row="3" Grid.Column="0" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="17" Pressed="OnButtonPressed" Grid.Row="3" Grid.Column="1" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="18" Pressed="OnButtonPressed" Grid.Row="3" Grid.Column="2" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="19" Pressed="OnButtonPressed" Grid.Row="3" Grid.Column="3" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="20" Pressed="OnButtonPressed" Grid.Row="3" Grid.Column="4" Released="OnButtonReleased">
+        </Button>
+
+
+
+
+        <Button  CommandParameter="21" Pressed="OnButtonPressed" Grid.Row="4" Grid.Column="0" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="22" Pressed="OnButtonPressed" Grid.Row="4" Grid.Column="1" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="23" Pressed="OnButtonPressed" Grid.Row="4" Grid.Column="2" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="24" Pressed="OnButtonPressed" Grid.Row="4" Grid.Column="3" Released="OnButtonReleased">
+        </Button>
+        <Button  CommandParameter="25" Pressed="OnButtonPressed" Grid.Row="4" Grid.Column="4" Released="OnButtonReleased">
+        </Button>
+
+
+    </Grid>
+    </Grid>
+</views:ContentPageBase>
